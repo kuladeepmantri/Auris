@@ -235,6 +235,11 @@ sg_error_t sg_cli_parse(int argc, char *argv[], sg_cli_opts_t *opts)
         return SG_ERR_INVALID_ARG;
     }
     
+    /* Inject command has its own CLI parser, skip main option parsing */
+    if (opts->command == CMD_INJECT) {
+        return SG_OK;
+    }
+    
     /* Parse options starting from argv[2] */
     optind = 2;
     int opt;

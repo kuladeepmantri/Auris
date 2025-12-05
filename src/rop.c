@@ -13,6 +13,8 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <sys/ptrace.h>
+#include <sys/wait.h>
 #include <elf.h>
 
 #include "auris.h"

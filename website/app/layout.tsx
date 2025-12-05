@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Auris v2.0 · ARM64 Security Toolkit for Defense & Offense',
-  description: 'Auris is a research-grade ARM64 Linux security toolkit combining syscall tracing, behavioral analysis, and policy enforcement (blue team) with process injection, shellcode execution, and ROP chain building (red team).',
+  title: 'Auris — ARM64 Linux Security Toolkit',
+  description: 'Auris listens to every syscall. Defense: trace, profile, detect anomalies, enforce policies. Offense: inject shellcode, find ROP gadgets, manipulate memory. Built on ptrace for ARM64 Linux.',
 }
 
 export default function RootLayout({

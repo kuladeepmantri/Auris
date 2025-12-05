@@ -253,6 +253,9 @@ sg_error_t sg_rop_find_gadgets(const char *binary_path,
 /* Free gadget database */
 void sg_rop_free_gadgets(sg_gadget_db_t *db);
 
+/* Print gadget database summary */
+void sg_rop_print_gadgets(sg_gadget_db_t *db, size_t max_count);
+
 /* Find gadget by type */
 sg_rop_gadget_t *sg_rop_find_gadget_by_type(sg_gadget_db_t *db, uint32_t type);
 
