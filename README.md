@@ -1,10 +1,10 @@
 # Auris
 
-**/ˈaʊ.rɪs/** — Latin: *to listen*
+**/ˈaʊ.rɪs/** - (Latin: *to listen*)
 
-**ARM64 Syscall Tracer & Behavioral Security Analyzer**
+**ARM64 Syscall Tracer and Behavioral Security Analyzer**
 
-Auris is a research-grade security tool that listens to programs at the syscall level. It intercepts every system call a program makes — file operations, network connections, process creation — and uses this data to build behavioral profiles, detect anomalies, and enforce security policies.
+Auris is a research grade security tool that listens to programs at the syscall level. It intercepts every system call a program makes, including file operations, network connections, and process creation, and uses this data to build behavioral profiles, detect anomalies, and enforce security policies.
 
 Built for ARM64 Linux using the kernel's ptrace interface. Runs entirely in userspace with no kernel modules required.
 
@@ -148,9 +148,9 @@ Auris stores all data in the data directory (default: `/data/auris`):
 
 - Auris requires `CAP_SYS_PTRACE` capability to trace processes
 - In Docker, use `--cap-add=SYS_PTRACE --security-opt seccomp=unconfined`
-- Block mode enforcement can terminate processes - use with caution
+- Block mode enforcement can terminate processes, so use it with caution
 - Sensitive path detection includes common credential and key locations
-- AI integration sends profile/trace data to the configured endpoint
+- AI integration sends profile and trace data to the configured endpoint
 
 ## Architecture
 

@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Auris — ARM64 Syscall Tracer & Behavioral Security Analyzer',
-  description: 'A research-grade ptrace-based tool for syscall tracing, behavioral profiling, anomaly detection, and policy enforcement on ARM64 Linux.',
+  title: 'Auris · ARM64 Syscall Tracer and Behavioral Security Analyzer',
+  description: 'Auris is a research grade ptrace based tool for syscall tracing, behavioral profiling, anomaly detection, and policy enforcement on ARM64 Linux.',
 }
 
 export default function RootLayout({

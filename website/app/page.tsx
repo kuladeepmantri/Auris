@@ -179,8 +179,8 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-[var(--text)] mb-4">Overview</h2>
           
           <p className="text-[var(--text-secondary)] mb-4 leading-relaxed">
-            Auris is a research-grade security tool that listens to programs at the syscall level. It intercepts every 
-            system call a program makes — file operations, network connections, process creation — and uses this data 
+            Auris is a research grade security tool that listens to programs at the syscall level. It intercepts every
+            system call a program makes, including file operations, network connections, and process creation, and uses this data
             to build behavioral profiles, detect anomalies, and enforce security policies.
           </p>
           
