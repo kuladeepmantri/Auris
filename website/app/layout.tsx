@@ -1,9 +1,15 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Auris — ARM64 Linux Security Toolkit',
   description: 'Auris listens to every syscall. Defense: trace, profile, detect anomalies, enforce policies. Offense: inject shellcode, find ROP gadgets, manipulate memory. Built on ptrace for ARM64 Linux.',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 }
 
 export default function RootLayout({

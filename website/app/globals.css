@@ -139,3 +139,26 @@ pre, pre code {
 .animate-slide-down {
   animation: slideDown 0.25s ease-out forwards;
 }
+
+/* Mobile-first responsive adjustments */
+@media (max-width: 640px) {
+  body {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  
+  code:not(pre code) {
+    font-size: 0.8em;
+    padding: 0.15em 0.35em;
+  }
+  
+  pre, pre code {
+    font-size: 0.75rem;
+  }
+  
+  /* Prevent horizontal scroll on mobile */
+  pre {
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+}

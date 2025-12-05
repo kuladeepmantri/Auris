@@ -75,20 +75,20 @@ export default function AnimatedTerminal({ command, output, title = 'terminal' }
       style={{ minHeight: `${estimatedHeight}px` }}
     >
       {/* Terminal header with macOS-style buttons */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1e293b] bg-[#0c1222]">
-        <div className="flex gap-2">
-          <div className="w-3 h-3 rounded-full bg-[#ff5f57] hover:bg-[#ff5f57]/80 transition-colors cursor-pointer"></div>
-          <div className="w-3 h-3 rounded-full bg-[#febc2e] hover:bg-[#febc2e]/80 transition-colors cursor-pointer"></div>
-          <div className="w-3 h-3 rounded-full bg-[#28c840] hover:bg-[#28c840]/80 transition-colors cursor-pointer"></div>
+      <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-3 border-b border-[#1e293b] bg-[#0c1222]">
+        <div className="flex gap-1.5 sm:gap-2">
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff5f57]"></div>
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#febc2e]"></div>
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#28c840]"></div>
         </div>
         <div className="flex-1 text-center">
-          <span className="text-xs font-medium text-[var(--terminal-dim)]">{title}</span>
+          <span className="text-[10px] sm:text-xs font-medium text-[var(--terminal-dim)]">{title}</span>
         </div>
-        <div className="w-[52px]"></div> {/* Spacer for centering */}
+        <div className="w-[40px] sm:w-[52px]"></div> {/* Spacer for centering */}
       </div>
       
       {/* Terminal content */}
-      <div className="p-5 font-mono text-[13px] leading-[1.7] overflow-x-auto">
+      <div className="p-3 sm:p-5 font-mono text-[11px] sm:text-[13px] leading-[1.6] sm:leading-[1.7] overflow-x-auto">
         <div className="text-[var(--terminal-text)]">
           <span className="text-[var(--terminal-green)]">$</span>
           <span className="ml-2">{displayedCommand.slice(2)}</span>
