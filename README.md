@@ -28,7 +28,7 @@ Built for ARM64 Linux using the kernel's ptrace interface. Runs entirely in user
 - **Memory Analysis**: Dump and analyze target process memory maps
 - **Target Discovery**: Find injectable processes and assess permissions
 
-> ⚠️ **WARNING**: The offensive security features are for authorized penetration testing and security research only. Unauthorized use against systems you do not own or have explicit permission to test is illegal.
+> **WARNING**: The offensive security features are for authorized penetration testing and security research only. Unauthorized use against systems you do not own or have explicit permission to test is illegal.
 
 ## Requirements
 
