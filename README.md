@@ -226,7 +226,7 @@ cd build && ctest --output-on-failure
 
 ## License
 
-MIT License
+Apache-2.0 license
 
 ## Contributing
 
