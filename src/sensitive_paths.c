@@ -308,3 +308,23 @@ sg_error_t sg_load_sensitive_patterns(const char *config_path)
     
     return SG_OK;
 }
+
+/*
+ * Clean up custom sensitive patterns
+ * Should be called at program exit to free memory
+ */
+void sg_sensitive_patterns_cleanup(void)
+{
+    if (custom_patterns != NULL) {
+        for (size_t i = 0; i < custom_pattern_count; i++) {
+            /* Free the duplicated reason string */
+            if (custom_patterns[i].reason != NULL) {
+                free((void *)custom_patterns[i].reason);
+            }
+        }
+        free(custom_patterns);
+        custom_patterns = NULL;
+    }
+    custom_pattern_count = 0;
+    custom_pattern_capacity = 0;
+}

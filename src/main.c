@@ -14,6 +14,7 @@
 #include "cli.h"
 #include "syscall_table.h"
 #include "logging.h"
+#include "dataflow.h"
 
 /* Global for signal handling */
 static volatile sig_atomic_t g_interrupted = 0;
@@ -74,6 +75,7 @@ static sg_error_t init_subsystems(sg_log_level_t log_level)
  */
 static void cleanup_subsystems(void)
 {
+    sg_sensitive_patterns_cleanup();
     sg_syscall_table_cleanup();
     sg_log_cleanup();
 }

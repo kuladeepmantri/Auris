@@ -25,8 +25,18 @@ typedef struct {
  */
 static size_t write_callback(void *contents, size_t size, size_t nmemb, void *userp)
 {
-    size_t realsize = size * nmemb;
     response_buffer_t *buf = (response_buffer_t *)userp;
+    
+    /* Check for integer overflow in size calculation */
+    if (size > 0 && nmemb > SIZE_MAX / size) {
+        return 0;  /* Overflow would occur */
+    }
+    size_t realsize = size * nmemb;
+    
+    /* Check for overflow in buffer size calculation */
+    if (buf->size > SIZE_MAX - realsize - 1) {
+        return 0;  /* Overflow would occur */
+    }
     
     /* Expand buffer if needed */
     if (buf->size + realsize + 1 > buf->capacity) {

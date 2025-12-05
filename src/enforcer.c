@@ -430,6 +430,66 @@ char *sg_enforce_stats_to_json(const sg_enforce_stats_t *stats)
 }
 
 /*
+ * Escape a string for JSON output
+ * Returns a newly allocated string that must be freed
+ */
+static char *json_escape_string(const char *str)
+{
+    if (str == NULL) {
+        return strdup("");
+    }
+    
+    /* Calculate required size */
+    size_t len = 0;
+    for (const char *p = str; *p; p++) {
+        switch (*p) {
+            case '"': case '\\': case '/':
+                len += 2;
+                break;
+            case '\b': case '\f': case '\n': case '\r': case '\t':
+                len += 2;
+                break;
+            default:
+                if ((unsigned char)*p < 0x20) {
+                    len += 6;  /* \uXXXX */
+                } else {
+                    len += 1;
+                }
+                break;
+        }
+    }
+    
+    char *escaped = malloc(len + 1);
+    if (escaped == NULL) {
+        return NULL;
+    }
+    
+    char *out = escaped;
+    for (const char *p = str; *p; p++) {
+        switch (*p) {
+            case '"':  *out++ = '\\'; *out++ = '"';  break;
+            case '\\': *out++ = '\\'; *out++ = '\\'; break;
+            case '/':  *out++ = '\\'; *out++ = '/';  break;
+            case '\b': *out++ = '\\'; *out++ = 'b';  break;
+            case '\f': *out++ = '\\'; *out++ = 'f';  break;
+            case '\n': *out++ = '\\'; *out++ = 'n';  break;
+            case '\r': *out++ = '\\'; *out++ = 'r';  break;
+            case '\t': *out++ = '\\'; *out++ = 't';  break;
+            default:
+                if ((unsigned char)*p < 0x20) {
+                    out += snprintf(out, 7, "\\u%04x", (unsigned char)*p);
+                } else {
+                    *out++ = *p;
+                }
+                break;
+        }
+    }
+    *out = '\0';
+    
+    return escaped;
+}
+
+/*
  * Serialize violations to JSON
  */
 char *sg_violations_to_json(const sg_violation_t *violations, size_t count)
@@ -438,7 +498,7 @@ char *sg_violations_to_json(const sg_violation_t *violations, size_t count)
         return strdup("[]");
     }
     
-    size_t buf_size = 256 + count * 512;
+    size_t buf_size = 256 + count * 1024;  /* Increased for escaped strings */
     char *buf = malloc(buf_size);
     if (buf == NULL) {
         return NULL;
@@ -452,23 +512,34 @@ char *sg_violations_to_json(const sg_violation_t *violations, size_t count)
             pos += snprintf(buf + pos, buf_size - pos, ",");
         }
         
-        pos += snprintf(buf + pos, buf_size - pos,
-                        "{"
-                        "\"event_id\":%lu,"
-                        "\"pid\":%d,"
-                        "\"syscall_nr\":%u,"
-                        "\"syscall_name\":\"%s\","
-                        "\"action\":%d,"
-                        "\"path\":\"%s\","
-                        "\"reason\":\"%s\""
-                        "}",
-                        (unsigned long)violations[i].event_id,
-                        violations[i].pid,
-                        violations[i].syscall_nr,
-                        violations[i].syscall_name,
-                        violations[i].action_taken,
-                        violations[i].path,
-                        violations[i].reason);
+        /* Escape strings for safe JSON output */
+        char *escaped_name = json_escape_string(violations[i].syscall_name);
+        char *escaped_path = json_escape_string(violations[i].path);
+        char *escaped_reason = json_escape_string(violations[i].reason);
+        
+        if (escaped_name && escaped_path && escaped_reason) {
+            pos += snprintf(buf + pos, buf_size - pos,
+                            "{"
+                            "\"event_id\":%lu,"
+                            "\"pid\":%d,"
+                            "\"syscall_nr\":%u,"
+                            "\"syscall_name\":\"%s\","
+                            "\"action\":%d,"
+                            "\"path\":\"%s\","
+                            "\"reason\":\"%s\""
+                            "}",
+                            (unsigned long)violations[i].event_id,
+                            violations[i].pid,
+                            violations[i].syscall_nr,
+                            escaped_name,
+                            violations[i].action_taken,
+                            escaped_path,
+                            escaped_reason);
+        }
+        
+        free(escaped_name);
+        free(escaped_path);
+        free(escaped_reason);
     }
     
     pos += snprintf(buf + pos, buf_size - pos, "]");

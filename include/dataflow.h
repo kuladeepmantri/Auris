@@ -148,4 +148,10 @@ sg_error_t sg_add_sensitive_pattern(const char *pattern,
  */
 sg_error_t sg_load_sensitive_patterns(const char *config_path);
 
+/*
+ * Clean up custom sensitive patterns
+ * Should be called at program exit to free memory
+ */
+void sg_sensitive_patterns_cleanup(void);
+
 #endif /* SYSGUARD_DATAFLOW_H */
